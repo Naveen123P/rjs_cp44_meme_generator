@@ -38,9 +38,44 @@ export const Text = styled.p`
   margin: 0px;
 `
 
-export const InputsContainer = styled.div`
+export const InputsContainer = styled.form`
   height: 55%;
   width: 92%;
-  background-color: #782;
   margin: 5px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  padding: 0px;
+`
+
+export const LabelElement = styled.label`
+  color: #7e858e;
+  font-family: 'Open Sans';
+`
+
+export const InputElement = styled.input`
+  height: 2rem;
+  width: 100%;
+  border: 1px solid #7e858e;
+  padding: auto;
+  border-radius: 5px;
+`
+
+export const SelectElement = styled.select`
+  height: 2rem;
+  width: 100%;
+  border: 1px solid #7e858e;
+  padding: auto;
+  border-radius: 5px;
+`
+export const SubmitButton = styled.button`
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #0b69ff;
+  border: none;
+  padding: auto;
+  height: 2rem;
+  width: 6rem;
+  border-radius: 5px;
 `

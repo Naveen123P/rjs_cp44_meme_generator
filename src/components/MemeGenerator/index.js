@@ -5,6 +5,10 @@ import {
   ImageContainer,
   Text,
   InputsContainer,
+  LabelElement,
+  InputElement,
+  SelectElement,
+  SubmitButton,
 } from './styledComponents'
 
 const fontSizesOptionsList = [
@@ -41,22 +45,93 @@ const fontSizesOptionsList = [
 
 class MemeGenerator extends Component {
   state = {
-    imageUrl: 'https://assets.ccbp.in/frontend/react-js/nature-img.png',
-    topText: 'Naveen',
-    bottomText: 'Pothuraju',
-    fontSize: 16,
+    imageUrl: '',
+    topText: '',
+    bottomText: '',
+    fontSize: '8',
+    isGenerate: false,
+  }
+
+  onChangeImageUrl = event => {
+    this.setState({imageUrl: event.target.value})
+  }
+
+  onChangeTopText = event => {
+    this.setState({topText: event.target.value})
+  }
+
+  onChangeBottomText = event => {
+    this.setState({bottomText: event.target.value})
+  }
+
+  onChangeFontSize = event => {
+    this.setState({fontSize: event.target.value})
+  }
+
+  onClickGenerate = event => {
+    event.preventDefault()
+    this.setState({isGenerate: true})
   }
 
   render() {
-    const {imageUrl, topText, bottomText, fontSize} = this.state
+    const {imageUrl, topText, bottomText, fontSize, isGenerate} = this.state
     return (
-      <MemeGeneratorContainer>
+      <MemeGeneratorContainer data-testid="meme">
         <Heading>Meme Generator</Heading>
-        <ImageContainer bgImg={imageUrl}>
-          <Text fontSize={fontSize}>{topText}</Text>
-          <Text fontSize={fontSize}>{bottomText}</Text>
-        </ImageContainer>
-        <InputsContainer>s</InputsContainer>
+        {isGenerate && (
+          <ImageContainer bgImg={imageUrl}>
+            <Text fontSize={`${fontSize}px`}>{topText}</Text>
+            <Text fontSize={`${fontSize}px`}>{bottomText}</Text>
+          </ImageContainer>
+        )}
+        <InputsContainer onSubmit={this.onClickGenerate}>
+          <div>
+            <LabelElement htmlFor="urlId">Image URL</LabelElement>
+            <InputElement
+              type="text"
+              id="urlId"
+              placeholder="Enter the image URL"
+              value={imageUrl}
+              onChange={this.onChangeImageUrl}
+            />
+          </div>
+          <div>
+            <LabelElement htmlFor="topTextId">Top Text</LabelElement>
+            <InputElement
+              type="text"
+              id="topTextId"
+              placeholder="Enter the Top Text"
+              value={topText}
+              onChange={this.onChangeTopText}
+            />
+          </div>
+          <div>
+            <LabelElement htmlFor="bottomTextId">Bottom Text</LabelElement>
+            <InputElement
+              type="text"
+              id="bottomTextId"
+              placeholder="Enter the Bottom Text"
+              value={bottomText}
+              onChange={this.onChangeBottomText}
+            />
+          </div>
+          <div>
+            <LabelElement htmlFor="fontSizeId">Font Size</LabelElement>
+            <SelectElement
+              id="fontSizeId"
+              name="fontSizeId"
+              value={fontSize}
+              onChange={this.onChangeFontSize}
+            >
+              {fontSizesOptionsList.map(eachItem => (
+                <option key={eachItem.optionId} value={eachItem.optionId}>
+                  {eachItem.displayText}
+                </option>
+              ))}
+            </SelectElement>
+          </div>
+          <SubmitButton type="submit">Generate</SubmitButton>
+        </InputsContainer>
       </MemeGeneratorContainer>
     )
   }
